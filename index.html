@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>API Tester</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    textarea { width: 100%; }
+    pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+  <h2>API Tester</h2>
+  <form id="apiForm">
+    <label for="question">Question:</label><br>
+    <textarea id="question" name="question" rows="5" placeholder="Enter your question here..."></textarea><br><br>
+    
+    <label for="file">File (optional):</label>
+    <input type="file" id="file" name="file"><br><br>
+    
+    <button type="button" onclick="submitForm()">Submit</button>
+  </form>
+
+  <h3>Response:</h3>
+  <pre id="response"></pre>
+
+  <script>
+    async function submitForm() {
+      const form = document.getElementById('apiForm');
+      const formData = new FormData(form);
+      // Replace the URL below with your deployed API endpoint
+      const endpoint = "https://tdsp2n.vercel.app/";
+      
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+        document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        document.getElementById('response').textContent = 'Error: ' + err;
+      }
+    }
+  </script>
+</body>
+</html>
