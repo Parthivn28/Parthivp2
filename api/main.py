@@ -476,3 +476,7 @@ async def process_question(question: str = Form(...), file: UploadFile = None):
         return {"answer": answer, "similarity_score": similarity_score}
     else:
         return {"error": "Question not recognized", "similarity_score": similarity_score}
+
+
+from mangum import Mangum
+handler = Mangum(app)
